@@ -1,0 +1,985 @@
+<section id="main-shop">
+  <div class="container wrap-product">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="sort-product style3">
+          <ul class="tab-product-list float-left">
+            <li class="active">모든 상품</li>
+            <li>베스트셀러</li>
+            <li>신상품</li>
+            <li>세일 중</li>
+          </ul>
+          <div class="filter float-right">
+            <%= link_to "상품등록", new_item_path %>
+          </div>
+          <div class="filter">
+            Filters <i class="fa fa-angle-down" aria-hidden="true"></i>
+          </div>
+        </div>
+        <!-- /.sort-product -->
+        <div class="box-filter shop">
+          <div class="hide">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+          <div class="widget widget-sort-by">
+            <div class="widget-title">
+              <h4>Sort By</h4>
+            </div>
+            <ul>
+              <li>
+                <a href="#" title="">Default</a>
+              </li>
+              <li>
+                <a href="#" title="">Popularity</a>
+              </li>
+              <li>
+                <a href="#" title="">Average rating</a>
+              </li>
+              <li>
+                <a href="#" title="">Newness</a>
+              </li>
+              <li>
+                <a href="#" title="">Price: low to high</a>
+              </li>
+              <li>
+                <a href="#" title="">Price: high to low</a>
+              </li>
+            </ul>
+          </div>
+          <!-- /.widget widget-sort-by -->
+          <div class="widget widget-price">
+            <div class="widget-title">
+              <h4>Price</h4>
+            </div>
+            <ul class="price-list">
+              <li>
+                <a href="#" title="">$0.00 - $50.00</a>
+              </li>
+              <li>
+                <a href="#" title="">$50.00 - $100.00</a>
+              </li>
+              <li>
+                <a href="#" title="">$100.00 - $150.00</a>
+              </li>
+              <li>
+                <a href="#" title="">$150.00 - $200.00</a>
+              </li>
+              <li>
+                <a href="#" title="">$200.00 - 250.00</a>
+              </li>
+              <li>
+                <a href="#" title="">250.00+</a>
+              </li>
+            </ul>
+          </div>
+          <!-- /.widget widget-price -->
+          <div class="widget widget-color">
+            <div class="widget-title">
+              <h4>Color</h4>
+            </div>
+            <ul class="color-list">
+              <li><a href="#" class="yellow" title="">Yellow</a></li>
+              <li><a href="#" class="white" title="">White</a></li>
+              <li><a href="#" class="red" title="">Red</a></li>
+              <li><a href="#" class="black" title="">Black</a></li>
+              <li><a href="#" class="blue" title="">Blue</a></li>
+              <li><a href="#" class="orange" title="">Orange</a></li>
+            </ul>
+          </div>
+          <!-- /.widget widget-color -->
+          <div class="widget widget-size">
+            <div class="widget-title">
+              <h4>Size</h4>
+            </div>
+            <ul class="size-list">
+              <li>
+                <a href="#" title="">L</a>
+              </li>
+              <li>
+                <a href="#" title="">M</a>
+              </li>
+              <li>
+                <a href="#" title="">S</a>
+              </li>
+              <li>
+                <a href="#" title="">XL</a>
+              </li>
+              <li>
+                <a href="#" title="">XXL</a>
+              </li>
+              <li>
+                <a href="#" title="">Over Size</a>
+              </li>
+            </ul>
+          </div>
+          <!-- /.widget widget-size -->
+          <div class="widget widget-tags">
+            <div class="widget-title">
+              <h4>Tags</h4>
+            </div>
+            <ul class="tags-list">
+              <li>
+                <a href="#" title="">All products</a>
+              </li>
+              <li>
+                <a href="#" title="">Bags</a>
+              </li>
+              <li>
+                <a href="#" title="">Decoration</a>
+              </li>
+              <li>
+                <a href="#" title="">Fashion</a>
+              </li>
+              <li>
+                <a href="#" title="">Chair</a>
+              </li>
+              <li>
+                <a href="#" title="">Chair</a>
+              </li>
+              <li>
+                <a href="#" title="">Furniture</a>
+              </li>
+              <li>
+                <a href="#" title="">Accesories</a>
+              </li>
+            </ul>
+          </div>
+          <!-- /.widget widget-tags -->
+        </div>
+        <!-- /.box-filter shop -->
+      </div>
+      <!-- /.col-md-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="tab-product-content">
+      <div class="row first">
+        <% @items.each do |i| %>
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <%= i.status_to_span %>
+              <%= image_tag i.image.url %>
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+
+                <% if user_signed_in? && UserItem.find_by(user_id: current_user.id, item_id: i.id).present? %>
+                  <%= link_to user_item_path(i.id), method: :delete, class: "like" do %>
+                    <span class="icon_heart"></span>
+                  <% end %>
+                <% else %>
+                  <%= link_to user_items_path(item_id: i.id), method: :post, class: "like" do %>
+                    <span class="icon_heart_alt"></span>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="view center">
+                <%= link_to "QUICK VIEW", item_path(i.id), class: "bg-black color-white" %>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <%= link_to "#{i.name}", item_path(i.id) %>
+              </div>
+              <div class="price">
+                <%= number_with_delimiter i.price %>원
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <% end %>
+        <!-- /.col-md-4 item-loadmore -->
+
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-12">
+          <div class="btn-loadmore center">
+            <a href="#" class="base bg-black color-white center" title="">LOADMORE</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/03.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/04.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/09.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/01.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/02.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/05.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/06.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/08.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/03.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-12">
+          <div class="btn-loadmore center">
+            <a href="#" class="base bg-black color-white center" title="">LOADMORE</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/09.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/01.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/02.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/05.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/03.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/04.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/06.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/08.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/03.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-12">
+          <div class="btn-loadmore center">
+            <a href="#" class="base bg-black color-white center" title="">LOADMORE</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/04.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/05.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/06.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/07.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/08.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/09.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/01.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/02.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/03.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/04.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-4 item-loadmore">
+          <div class="imagebox style1">
+            <div class="imagebox-header">
+              <img src="/images/shop/05.jpg" alt="">
+              <div class="add-cart">
+                <a href="#" class="shop-cart" title=""><span class="icon_cart_alt"></span></a>
+                <a href="#" class="like" title=""><span class="icon_heart_alt"></span></a>
+              </div>
+              <div class="view center">
+                <a href="#" class="bg-black color-white" title="">QUICK VIEW</a>
+              </div>
+            </div>
+            <!-- /.imagebox-header -->
+            <div class="imagebox-content center">
+              <div class="name">
+                <a href="#" title="">Raffia basket bag</a>
+              </div>
+              <div class="price">
+                $30.99
+              </div>
+            </div>
+            <!-- /.imagebox-content -->
+          </div>
+          <!-- /.imagebox style1 -->
+        </div>
+        <!-- /.col-md-4 item-loadmore -->
+        <div class="col-md-12">
+          <div class="btn-loadmore center">
+            <a href="#" class="base bg-black color-white center" title="">LOADMORE</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.tab-product-content -->
+  </div>
+  <!-- /.container -->
+</section>

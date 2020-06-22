@@ -1,0 +1,41 @@
+<section class="flat-contact-form">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-contact-form padding-contact">
+            <%= form_for @item, id: "contactform" do |f| %>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <div class="contact-form-name contact-form">
+              <%= f.text_field :name, placeholder: "꽃 이름"%>
+            </div>
+
+            <div class="contact-form-url contact-form">
+              <%= f.text_area :desc, placeholder: "꽃 설명" %>
+            </div>
+
+            <div class="contact-form-url contact-form">
+              <%= f.text_field :price, placeholder: "꽃 가격" %>
+            </div>
+
+            <div class="contact-form-url contact-form">
+              <% if f.object.image.present? %>
+                <%= image_tag f.object.image.url %>
+              <% end %>
+              <%= f.file_field :image %>
+            </div>
+
+            <div class="btn-contact-form center">
+              <%= f.button "작성 완료", name: :commit, class: "flat-button-form" %>
+            </div>
+            <% end %>
+
+          <!-- /form -->
+        </div>
+        <!-- /.form-contact-form -->
+      </div>
+      <!-- /.col-md-12 -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</section>

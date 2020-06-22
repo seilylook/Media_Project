@@ -1,0 +1,109 @@
+<section id="header" class="header style3">
+  <div class="container-fluid">
+    <div id="logo" class="logo float-left">
+      <a href="/" title="Yolo">
+        <img src="https://postfiles.pstatic.net/MjAyMDA2MTRfMTE0/MDAxNTkyMTIyMjkyMzgy.Rn8Zv5gb5EWvuUOqkG7NVEWc4fEbL9Td1FjsWdkO5UUg.HnI6exZa2TtjqEPLwsnysH6BSlHbSA3YyUYmdWJ2xoog.JPEG.seilylook/logojpg.jpg?type=w966" width="80">
+      </a>
+    </div>
+    <!-- /.logo -->
+    <div class="menu-extra">
+      <div class="box-search">
+        <span class="icon_search"></span>
+        <form action="#" method="get" accept-charset="utf-8">
+          <div class="input-search">
+            <input type="text" name="search" placeholder="|Enter Your Search...">
+            <span class="ti-close delete"></span>
+          </div>
+        </form>
+      </div>
+      <div class="box-wishlist">
+        <a href="#" title=""><span class=" icon_heart_alt"></span></a>
+      </div>
+      <div class="box-cart">
+        <span class="icon_bag_alt"><i class="numb-cart">2</i></span>
+        <div class="subcart">
+          <ul class="product-choose">
+            <li class="overflow">
+              <div class="img-product float-left">
+                <img src="/images/shop/s-01.jpg" alt="">
+              </div>
+              <div class="info-product float-left overflow">
+                <div class="price">
+                  $60.00 x <span>1</span>
+                </div>
+                <div class="name">
+                  <a href="#" title="">Kabino Bedside Table</a>
+                </div>
+              </div>
+              <div class="delete">
+                <img src="/images/shop/delete.png" alt="">
+              </div>
+            </li>
+            <li class="overflow">
+              <div class="img-product float-left">
+                <img src="/images/shop/s-02.jpg" alt="">
+              </div>
+              <div class="info-product float-left overflow">
+                <div class="price">
+                  $80.00 x <span>1</span>
+                </div>
+                <div class="name">
+                  <a href="#" title="">Kabino Bedside Table</a>
+                </div>
+              </div>
+              <div class="delete">
+                <img src="/images/shop/delete.png" alt="">
+              </div>
+            </li>
+          </ul>
+          <div class="total-cart overflow">
+            <p class="float-left">TOTAL:</p>
+            <p class="float-right">$460.00</p>
+          </div>
+          <div class="btn-cart">
+            <a href="#" class="view-cart" title="">VIEW CARD</a>
+            <a href="#" class="check-out" title="">CHECK OUT</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.icon-header -->
+    <ul class="flat-unstyled float-right">
+      <li class="money">
+        <a href="#" title"">USD<i class="fa fa-angle down" aria-hidden="true"></i></a>
+        <ul class="unstyled border-radius-5 box-shadow">
+          <li><a href="#" title="">GBP</a></li>
+          <li><a href="#" title="">Euro</a></li>
+        </ul>
+      </li>
+      <li class="login">
+        <a href="#" title="">Login<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+        <ul class="unstyled border-radius-5 box-shadow">
+          <% if user_signed_in? %>
+            <li>
+              <a href="<%= edit_user_registration_path %>" title="">정보수정</a>
+              <%= link_to "로그아웃", destroy_user_session_path, method: :delete %>
+            </li>
+          <% else %>
+            <li><a href="<%= new_user_session_path %>" title="">로그인</a></li>
+            <li><a href="<%= new_user_registration_path %>" title="">회원가입</a></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+    <!-- /.flat-infomation float-right -->
+
+    <!-- 상단의 네비게이션 바 -->
+    <div class="nav-wrap">
+      <div class="btn-menu">
+        <span></span>
+      </div>
+      <!-- //mobile menu button -->
+
+      <!-- /.mainnav -->
+    </div>
+    <!-- /.nav-wrap -->
+    <div class="clearfix"></div>
+  </div>
+  <!-- /.container-fluid -->
+</section>

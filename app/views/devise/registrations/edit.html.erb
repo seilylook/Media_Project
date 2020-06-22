@@ -1,0 +1,68 @@
+<section class="flat-signin">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="wrap-sign-in center">
+          <h4>회원 정보 수정</h4>
+          <div class="form-sign-in">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+              <%= devise_error_messages! %>
+
+              <div class="form-box">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+              </div>
+
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+              <% end %>
+
+
+              <!-- /.form-box -->
+              <div class="form-box">
+                <%= f.label :current_password %> <i>(현재 비밀번호를 입력해주세요)</i><br />
+                <%= f.password_field :current_password, autocomplete: "off" %>
+              </div>
+
+
+              <div class="form-box">
+                <%= f.label :password %> <br />
+                <%= f.password_field :password, autocomplete: "off" %>
+              </div>
+
+              <div class="form-box">
+                <%= f.label :password_confirmation %><br />
+                <%= f.password_field :password_confirmation, autocomplete: "off" %>
+              </div>
+
+              <!-- /.save-forget -->
+              <div class="btn-submit">
+                <button class="bg-black" type="submit">
+                <%= f.submit "업데이트", style: "background: none;" %>
+                </button>
+              </div>
+            <% end %>
+
+            <hr>
+            <h3>회원탈퇴</h3>
+
+            <p>정말 탈퇴 하시겠습니까?
+            <div class="btn-submit">
+              <button class="bg-black" type="submit">
+                <%= button_to "탈퇴하기", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, style: "background: none;" %></p>
+              </button>
+            </div>
+
+            <%= link_to "돌아가기", :back %>
+
+          </div>
+          <!-- /.form-sign-in -->
+        </div>
+        <!-- /.wrap-sign-in -->
+      </div>
+      <!-- /.col-md-12 -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</section>

@@ -1,0 +1,49 @@
+<section class="flat-signin">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="wrap-sign-in center">
+          <h4>회원가입</h4>
+          <div class="form-sign-in">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <div>
+                <div class="form-box">
+                  <%= f.label :email %><br />
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                </div>
+                <div class="form-box">
+                  <%= f.label :username %><br />
+                  <%= f.text_field :username %>
+                </div>
+                <div class="form-box">
+                  <%= f.label :user_type %><br />
+                  <%= f.select :user_type, {"사용자": "customer", "판매자": "seller"}, {}, class: "form-control" %>
+                </div>
+                <!-- /.form-box -->
+                <div class="form-box">
+                  <%= f.label :password %>
+                  <% if @minimum_password_length %>
+                  <em> (<%= @minimum_password_length %> 자 이상) </em>
+                  <% end %><br />
+                  <%= f.password_field :password, autocomplete: "off" %>
+                </div>
+                <!-- /.form-box -->
+                <div class="btn-submit">
+                  <button class="bg-black register" type="submit">
+                  <%= f.submit "회원가입", style: "background: none;" %>
+                  </button>
+                </div>
+                <%= link_to "로그인", new_user_session_path, class: "create-account" %>
+              </div>
+            <% end %>
+          </div>
+          <!-- /.form-sign-in -->
+        </div>
+        <!-- /.wrap-sign-in -->
+      </div>
+      <!-- /.col-md-12 -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</section>

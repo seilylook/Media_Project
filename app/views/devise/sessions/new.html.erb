@@ -1,0 +1,45 @@
+<section class="flat-signin">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="wrap-sign-in center">
+          <h4>로그인</h4>
+          <div class="form-sign-in">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="form-box">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+              </div>
+              <!-- /.form-box -->
+              <div class="form-box">
+                <%= f.label :password %><br />
+                <%= f.password_field :password, autocomplete: "off" %>
+              </div>
+              <!-- /.form-box -->
+              <div class="save-forget overflow">
+                <div class="checkbox float-left">
+                  <% if devise_mapping.rememberable? -%>
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :remember_me %>
+                </div>
+                  <% end %>
+              </div>
+              <!-- /.save-forget -->
+              <div class="btn-submit">
+                <button class="bg-black" type="submit">
+                <%= f.submit "로그인", style: "background: none;" %>
+                </button>
+              </div>
+              <a href="<%= new_user_registration_path %>" class="create-account" title="">회원가입</a>
+            <% end %>
+          </div>
+          <!-- /.form-sign-in -->
+        </div>
+        <!-- /.wrap-sign-in -->
+      </div>
+      <!-- /.col-md-12 -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</section>
